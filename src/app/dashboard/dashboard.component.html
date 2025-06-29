@@ -1,0 +1,149 @@
+<div class="card-wrapper">
+    <div class="sidebar">
+        <div><img src="assets/images/home.png" class="sidebar-icon" alt=""></div>
+        <div><img src="assets/images/folder.png" class="sidebar-icon" alt=""></div>
+        <div><img src="assets/images/gallery.png" class="sidebar-icon" alt=""></div>
+        <div><img src="assets/images/users.png" class="sidebar-icon" alt=""></div>
+        <div><img src="assets/images/layout.png" class="sidebar-icon" alt=""></div>
+        <div><img src="assets/images/setting.png" class="sidebar-icon" alt=""></div>
+        <div><img src="assets/images/profile.png" class="sidebar-icon" alt=""></div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>Welcome back, Olivia</h1>
+            <div>
+                <button class="btn">Customize</button>
+                <button class="btn">Export</button>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+
+                <div class="card-content">
+                    <h2>Vendor breakdown <img src="assets/images/menu.png" class="doticon" width="35" height="30"
+                            alt=""></h2>
+                    <canvas id="myChart" width="700" height="300"></canvas>
+
+                    <button class="btn" style="margin-top: 10px;">View full report</button>
+                </div>
+            </div>
+            <div class="card">
+
+                <div class="card-content">
+                    <h2>Vendors monitored <img src="assets/images/menu.png" class="doticon" width="35" height="30"
+                            alt=""></h2>
+                         
+                            <div class="card01">
+  <div class="progress-container">
+    <svg class="progress-ring" width="120" height="120">
+      <circle class="progress-ring__bg" r="52" cx="60" cy="60" />
+      <circle class="progress-ring__fg"
+              r="52" cx="60" cy="60"
+              [attr.stroke-dasharray]="circumference"
+              [attr.stroke-dashoffset]="offset">
+      </circle>
+      <text x="50%" y="50%" text-anchor="middle" dy=".3em" class="center-text">{{ value }}</text>
+    </svg>
+    <div class="percentage-change">📈 10%</div>
+  </div>
+
+  <div class="info">
+    <strong>You’ve almost reached your limit</strong>
+    <p>You have used {{ percent }}% of your available spots.<br>
+    Upgrade plan to monitor more vendors.</p>
+  </div>
+
+  <button class="upgrade-btn">⚡ Upgrade plan</button>
+</div>
+
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+
+            <div class="card-content">
+                <h2 style="margin-bottom: 1rem;">Team members <img src="assets/images/menu.png" class="doticon"
+                        width="35" height="30" alt=""></h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th><label class="custom-checkbox">
+                                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                    <span></span>
+                                </label>
+                            </th>
+                            <ng-container *ngFor="let head of header">
+                                <th> {{ head }} </th>
+                            </ng-container>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of userData">
+                            <td><label class="custom-checkbox">
+                                    <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                                    <span></span>
+                                </label></td>
+
+                            <td> {{ data?.name.first_name }} {{ data?.name.last_name }} <br><small>{{ data?.name.handle }}</small></td>
+                            <td><span class="status customer"> {{ data?.status }} </span></td>
+                            <td>  {{ data?.role }} </td>
+                            <td >
+
+                                 <div class="progress-wrapper">
+  <div class="progress-bar">
+    <div class="progress" [style.width.%]="data?.license_used"></div>
+  </div>
+  <span class="progress-text">{{ data?.license_used }}%</span>
+</div>
+
+                            </td>
+                            <td>
+                                
+                               <span
+    class="badge"
+    *ngFor="let teamData of data.teams"
+    [ngStyle]="getBadgeStyle(teamData.value)">
+    {{ teamData.value }}
+  </span>
+                            </td>
+                            <td>
+                                <img src="assets/images/delete.png" width="25" (click)="openDeletePopup()" height="25" alt="">&nbsp;&nbsp;
+                                    <img src="assets/images/edit.png" alt="" (click)="openEditPopup()" width="25" height="25">
+                                </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <button>&laquo; Previous</button>
+                    <button>Next &raquo;</button>
+                </div>
+       
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Edit Popup -->
+<div class="popup" *ngIf="showEditPopup">
+  <div class="popup-content">
+    <h3>Edit Data</h3>
+    <p>Put your edit form or content here...</p>
+    <button (click)="closeEditPopup()" class="closebtn">Close</button>
+  </div>
+</div>
+
+<!-- Delete Popup -->
+<div class="popup" *ngIf="showDeletePopup">
+  <div class="popup-content">
+    <h3>Are you sure you want to delete?</h3>
+    <button (click)="confirmDelete()" class="yesbtn">Yes</button>&nbsp;
+    <button (click)="closeDeletePopup()" class="yesbtn" style="background: black;">No</button>
+  </div>
+</div>
